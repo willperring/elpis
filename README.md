@@ -2,6 +2,15 @@
 
 ## Setup instructions
 
+### Copy and fill in FastAPI .env file
+```bash
+cd server/fastapi
+cp .env.example .env
+
+# and edit to add your OpenAI API key
+vim .env # or whatever editor you prefer
+```
+
 ### Build docker images 
 ```bash
 docker compose build
