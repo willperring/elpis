@@ -19,18 +19,23 @@ export const introduce = ( name: string ) => post(
   { name }
 )
 
-export const mindset = ( name: string, mindset: string ) => post(
-  `${API_URL}/mindset`,
+export const mindset = ( conversationId: string, name: string, mindset: string ) => post(
+  `${API_URL}/${conversationId}/mindset`,
   { name, mindset }
 )
 
-export const identifyObjective = ( conversation: ChatConversation ) => post(
-  `${API_URL}/identify-objective`,
+export const identifyObjective = ( conversationId: string, conversation: ChatConversation ) => post(
+  `${API_URL}/${conversationId}/identify-objective`,
   { conversation }
 )
 
-export const confirmObjective = ( conversation: ChatConversation ) => post(
-  `${API_URL}/confirm-objective`,
+export const confirmObjective = ( conversationId: string, conversation: ChatConversation ) => post(
+  `${API_URL}/${conversationId}/confirm-objective`,
+  { conversation }
+)
+
+export const obstacles = ( conversationId: string, conversation: ChatConversation ) => post(
+  `${API_URL}/${conversationId}/obstacles`,
   { conversation }
 )
 

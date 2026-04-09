@@ -28,7 +28,8 @@ export const Introduction = () =>
         dispatch({
           type  : Actions.INTRODUCED,
           name  : nameValue,
-          intro : response.intro_mindset
+          intro : response.intro_mindset,
+          uuid  : response.conversation_id,
         })
       })
       .finally( () => {

@@ -39,6 +39,11 @@ Route::prefix('v1')
                             'confirmObjective'
                         );
 
+                        Route::name('obstacles')->post(
+                            'obstacles',
+                            'obstacles'
+                        );
+
                     })
                 ;
             })

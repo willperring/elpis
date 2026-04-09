@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('conversations', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->json('conversation');
+            $table->json('context');
             $table->timestamps();
         });
     }

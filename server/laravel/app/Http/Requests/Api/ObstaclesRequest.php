@@ -5,7 +5,7 @@ namespace App\Http\Requests\Api;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class MindsetRequest extends FormRequest
+class ObstaclesRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,7 +23,9 @@ class MindsetRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'mindset' => 'required|string|max:255',
+            'conversation'           => 'required|array',
+            'conversation.*.role'    => 'required|string|in:user,assistant',
+            'conversation.*.content' => 'required|string',
         ];
     }
 }

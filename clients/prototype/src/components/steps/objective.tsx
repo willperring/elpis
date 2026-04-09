@@ -7,6 +7,7 @@ import type { ChatConversation, ChatMessage } from "@/types/llm.ts";
 import { confirmObjective } from "@/services/api.ts";
 import { ChatHistory } from "@/components/chat-history.tsx";
 import { Actions } from "@/state/reducer.ts";
+import { useChatWidget } from "@/hooks/use-chat-widget.ts";
 
 
 const haveTaskChoices: Choice[] = [
@@ -66,24 +67,16 @@ const ObjectivePathSelect = ({ onSelect }) =>
 const ObjectiveKnown = () =>
 {
   const dispatch = useDispatch();
-  const { objectiveKnown } = useAppState();
 
-  const [ textValue,  setTextValue  ] = useState('');
   const [ processing, setProcessing ] = useState( false );
 
-  const [ conversation, setConversation ] = useState<ChatConversation>([]);
+  const { conversationId, objectiveKnown } = useAppState();
+  const { textValue, setTextValue, conversation, pushMessage, onTextChange } = useChatWidget();
 
   const canSubmit = textValue.length > 10;
 
-  const onTextChange = ( e: ChangeEvent<HTMLTextAreaElement> ) => {
-    setTextValue( e.target.value );
-  }
-
-  const pushMessage = ( message: ChatMessage ) => {
-    setConversation( (prev) => [...prev, message] )
-  }
-
-  const onSubmit = () => {
+  const onSubmit = () =>
+  {
     const message: ChatMessage = { role: 'user', content: textValue }
     console.warn( 'message', message )
 
@@ -94,12 +87,12 @@ const ObjectiveKnown = () =>
     // Send to the API - need to recreate the whole conversation
     const fullConversation: ChatConversation = [ ...conversation, message ]
 
-    confirmObjective( fullConversation ).then( response => {
+    confirmObjective( conversationId, fullConversation ).then( response => {
       console.warn( 'response', response )
       if( response?.objective?.more_information ) {
         pushMessage({ role: 'assistant', content: response.objective.more_information })
 
-      } else if( response?.objective?.objective_title ) {
+      } else if( response?.result === 'confirmed' ) {
         dispatch({
           type        : Actions.OBJECTIVE,
           intro       : response.objective.response_to_user,
@@ -122,13 +115,15 @@ const ObjectiveKnown = () =>
         <textarea
           className="w-full h-40 my-5"
           value={ textValue }
-          onChange={ e => setTextValue( e.target.value ) }
+          onChange={ onTextChange }
         />
+
         <Button
           title="Submit"
           onPress={ onSubmit }
           disabled={ processing || ! canSubmit }
         />
+
       </>
   )
 }

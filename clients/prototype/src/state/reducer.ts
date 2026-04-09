@@ -3,6 +3,8 @@ export enum Stages {
   MINDSET      = 'mindset',
   OBJECTIVE    = 'objective',
   OBSTACLES    = 'obstacles',
+  REVIEW       = 'review',
+  ADVICE       = 'advice'
 }
 
 export enum Actions {
@@ -10,11 +12,13 @@ export enum Actions {
   MINDSET    = 'mindset',
   OBJECTIVE  = 'objective',
   OBSTACLES  = 'obstacles',
+  RESET      = 'reset',
 }
 
 export type ApplicationState = {
   activeStage: Stages,
 
+  conversationId: string,
   name: string,
 
   introMindset   : string,
@@ -25,12 +29,20 @@ export type ApplicationState = {
   objectiveTitle       : string,
   objectiveInstruction : string,
 
-  introObstacles : string,
+  introObstacles       : string,
+  obstaclesTitle       : string,
+  obstaclesInstruction : string,
+
+  introReview       : string,
+
+  isError          : boolean,
+  errorDescription : string,
 }
 
 export const defaultState: ApplicationState = {
   activeStage: Stages.INTRODUCTION,
 
+  conversationId: '',
   name : '',
 
   introMindset : '',
@@ -41,14 +53,23 @@ export const defaultState: ApplicationState = {
   objectiveTitle       : '',
   objectiveInstruction : '',
 
-  introObstacles : '',
+  introObstacles       : '',
+  obstaclesTitle       : '',
+  obstaclesInstruction : '',
+
+  introReview       : '',
+
+  isError          : false,
+  errorDescription : '',
 
 }
 
 export type ActionType =
-  { type: Actions.INTRODUCED, name: string, intro: string } |
+  { type: Actions.INTRODUCED, name: string,  intro: string, uuid: string } |
   { type: Actions.MINDSET,    intro: string, known: string, unknown: string } |
-  { type: Actions.OBJECTIVE,  intro: string, title: string, instruction: string }
+  { type: Actions.OBJECTIVE,  intro: string, title: string, instruction: string } |
+  { type: Actions.OBSTACLES,  intro: string, title: string, instruction: string } |
+  { type: Actions.RESET }
 
 export const reducerFunction = (state: ApplicationState, action: ActionType): ApplicationState =>
 {
@@ -56,11 +77,15 @@ export const reducerFunction = (state: ApplicationState, action: ActionType): Ap
 
   switch( action.type )
   {
+    case Actions.RESET:
+      return defaultState;
+
     case Actions.INTRODUCED:
       return { ...state,
-        name         : action.name,
-        introMindset : action.intro,
-        activeStage  : Stages.MINDSET
+        activeStage    : Stages.MINDSET,
+        name           : action.name,
+        introMindset   : action.intro,
+        conversationId : action.uuid,
       }
 
     case Actions.MINDSET:
@@ -77,6 +102,15 @@ export const reducerFunction = (state: ApplicationState, action: ActionType): Ap
         introObstacles       : action.intro,
         objectiveTitle       : action.title,
         objectiveInstruction : action.instruction,
+      }
+
+    case Actions.OBSTACLES:
+      console.warn( 'obstacles', action, Stages.REVIEW, Stages )
+      return { ...state,
+        activeStage          : Stages.REVIEW,
+        introReview          : action.intro,
+        obstaclesTitle       : action.title,
+        obstaclesInstruction : action.instruction,
       }
   }
 

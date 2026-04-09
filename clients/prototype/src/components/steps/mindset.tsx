@@ -34,12 +34,12 @@ const choices: Choice[] = [
 export const Mindset = () =>
 {
   const dispatch = useDispatch();
-  const { name, introMindset } = useAppState();
+  const { conversationId, name, introMindset } = useAppState();
 
   const onChoiceSelect = ( choice: Choice ) => {
     console.warn( 'choice', choice )
     const value = `${choice.title}: ${choice.description}`
-    mindset( name, value ).then( response => {
+    mindset( conversationId, name, value ).then( response => {
       dispatch({
         type    : Actions.MINDSET,
         intro   : response.intro_objective,
