@@ -1,0 +1,1 @@
+export const Objective = () => <div>Objective</div>

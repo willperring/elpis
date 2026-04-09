@@ -1,0 +1,1 @@
+export const Obstacles = () => <div>Obstacles</div>
