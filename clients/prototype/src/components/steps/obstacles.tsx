@@ -1,7 +1,7 @@
 import { Button } from "@/components/button.tsx";
 import { useAppState, useDispatch } from "@/state/provider.tsx";
 import { ChangeEvent, useState } from "react";
-import type { ChatMessage } from "@/types/llm.ts";
+import type { AdvicePersona, ChatMessage } from "@/types/llm.ts";
 import { useChatWidget } from "@/hooks/use-chat-widget.ts";
 import { ChatHistory } from "@/components/chat-history.tsx";
 import { obstacles } from "@/services/api.ts";
@@ -36,7 +36,8 @@ export const Obstacles = () =>
           type        : Actions.OBSTACLES,
           intro       : response.obstacles.response_to_user,
           title       : response.obstacles.obstacles_summary,
-          instruction : response.obstacles.obstacles_llm_instruction
+          instruction : response.obstacles.obstacles_llm_instruction,
+          personas    : response.obstacles.advice_personas,
         })
       }
     })

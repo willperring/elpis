@@ -5,6 +5,7 @@ import { Obstacles } from "@/components/steps/obstacles.tsx";
 import { useAppState } from "@/state/provider.tsx";
 import { Stages } from "@/state/reducer.ts";
 import { Review } from "@/components/steps/review.tsx";
+import { Advice } from "@/components/steps/advice.tsx";
 
 export const StepRouter = () =>
 {
@@ -32,6 +33,7 @@ export const StepRouter = () =>
         { activeStage === Stages.OBJECTIVE    && <Objective /> }
         { activeStage === Stages.OBSTACLES    && <Obstacles /> }
         { activeStage === Stages.REVIEW       && <Review />    }
+        { activeStage === Stages.ADVICE       && <Advice />    }
 
       </div>
     </>

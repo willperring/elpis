@@ -7,27 +7,32 @@ const choices: Choice[] = [
   {
     value: 'great',
     title: 'Feeling Great',
-    description: 'Fully energetic and ready to go'
+    description: 'Fully energetic and ready to go',
+    llm_prompt: 'I am feeling great, full or energy and excited to get started. You might even need to hold me back.'
   },
   {
     value: 'optimistic',
     title: 'Optimistic',
     description: 'Mentally willing, but lacking energy',
+    llm_prompt: 'I want to do good things, but I need help in getting the momentum to do it. Energising techniques will help.',
   },
   {
     value: 'unfocused',
     title: 'Unfocused',
     description: 'Lots of energy, but not fully engaged',
+    llm_prompt: 'I have the physical energy, but will need some mental techniques to help me focus.',
   },
   {
     value: 'anxious',
     title: 'Anxious',
     description: 'Feeling nervous or worried',
+    llm_prompt: 'I will need a calming influence to help me steady my thoughts and stay away from procrastination.'
   },
   {
     value: 'overwhelmed',
     title: 'Overwhelmed',
-    description: 'Everything is feeling a bit much'
+    description: 'Everything is feeling a bit much',
+    llm_prompt: 'I will need as much mental and physical guidance as you can provide me.'
   }
 ]
 
@@ -38,7 +43,7 @@ export const Mindset = () =>
 
   const onChoiceSelect = ( choice: Choice ) => {
     console.warn( 'choice', choice )
-    const value = `${choice.title}: ${choice.description}`
+    const value = `${choice.title}: ${choice.description}\n\n${choice.llm_prompt}`
     mindset( conversationId, name, value ).then( response => {
       dispatch({
         type    : Actions.MINDSET,

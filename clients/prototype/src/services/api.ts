@@ -39,3 +39,8 @@ export const obstacles = ( conversationId: string, conversation: ChatConversatio
   { conversation }
 )
 
+export const advice = ( conversationId: string, persona: string ) => post(
+  `${API_URL}/${conversationId}/advice`,
+  { persona }
+)
+

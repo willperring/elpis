@@ -44,6 +44,11 @@ Route::prefix('v1')
                             'obstacles'
                         );
 
+                        Route::name('advice')->post(
+                            'advice',
+                            'advice'
+                        );
+
                     })
                 ;
             })
