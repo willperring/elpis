@@ -12,6 +12,7 @@ router = APIRouter()
 mindset_instruction = '''
     We are trying to understand the nature of a task the user wants to complete.
     Be mindful of their current state of mind when addressing them, and be sure to acknowledge how they feel in your responses.
+    Include a few sentences of encouragement and smalltalk at the start of your response.
 '''
 
 mindset_prompts = [

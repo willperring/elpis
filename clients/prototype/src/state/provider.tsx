@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect, useContext, useReducer } from 'react';
+import { createContext, useContext, useReducer, type PropsWithChildren } from 'react';
 import {
   type ApplicationState,
   type ActionType,
@@ -14,7 +14,7 @@ const StateContext    = createContext<ApplicationState>(defaultState);
 export const useDispatch = () => useContext(DispatchContext);
 export const useAppState = () => useContext(StateContext);
 
-export const AppStateProvider = ({ children }) =>
+export const AppStateProvider = ({ children }: PropsWithChildren ) =>
 {
   const [ state, dispatch ] = useReducer(
     reducerFunction,

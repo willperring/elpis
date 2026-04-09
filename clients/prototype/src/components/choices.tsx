@@ -5,15 +5,15 @@ export type Choice = {
   llm_prompt  ?: string
 }
 
-type ChoiceSelectHandler<T=Choice> = (choice: T) => void
+type ChoiceSelectHandler = (choice: Choice) => void
 
-export type ChoicesProps<T> = {
+export type ChoicesProps = {
   choices        : Choice[]
-  onChoiceSelect : ChoiceSelectHandler<T>
-  className      ?: string
+  onChoiceSelect : ChoiceSelectHandler
+  className     ?: string
 }
 
-export function Choices<T=Choice>({ choices, onChoiceSelect, className='' }: ChoicesProps<T> )
+export function Choices({ choices, onChoiceSelect, className='' }: ChoicesProps )
 {
   return (
     <div className={ `flex flex-col gap-2 ${className}` }>
@@ -31,7 +31,7 @@ type ChoiceItemProps = {
   onSelect : ChoiceSelectHandler
 }
 
-const ChoiceItem = ({ choice, onSelect }: ChoiceItemProps ) =>
+const  ChoiceItem = ({ choice, onSelect }: ChoiceItemProps ) =>
 {
   const onClick = () => onSelect( choice )
 
