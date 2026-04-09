@@ -41,8 +41,10 @@ export const Mindset = () =>
     const value = `${choice.title}: ${choice.description}`
     mindset( name, value ).then( response => {
       dispatch({
-        type  : Actions.MINDSET,
-        intro : response.intro_objective
+        type    : Actions.MINDSET,
+        intro   : response.intro_objective,
+        known   : response.response_has_task,
+        unknown : response.response_no_task,
       })
     })
   }

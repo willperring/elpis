@@ -1,8 +1,11 @@
-const API_URL = 'http://localhost:8000'
+import type { ChatConversation } from "@/types/llm.ts";
+
+const API_URL = 'http://localhost:8001/api/v1'
 
 const post = ( url: string, body: object ) => fetch( url, {
   method: 'POST',
   body: JSON.stringify( body ),
+  credentials: 'include',
   headers: {
     'Content-Type': 'application/json',
     'Accept': 'application/json',
@@ -19,5 +22,15 @@ export const introduce = ( name: string ) => post(
 export const mindset = ( name: string, mindset: string ) => post(
   `${API_URL}/mindset`,
   { name, mindset }
+)
+
+export const identifyObjective = ( conversation: ChatConversation ) => post(
+  `${API_URL}/identify-objective`,
+  { conversation }
+)
+
+export const confirmObjective = ( conversation: ChatConversation ) => post(
+  `${API_URL}/confirm-objective`,
+  { conversation }
 )
 
