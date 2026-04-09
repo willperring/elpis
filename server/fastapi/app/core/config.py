@@ -9,6 +9,7 @@ class Settings(BaseSettings):
         extra="ignore"
     )
 
-    OPENAI_KEY: str = os.getenv('OPENAI_KEY',     '')
+    OPENAI_KEY: str   = os.getenv('OPENAI_KEY',     '')
+    OPENAI_MODEL: str = os.getenv('OPENAI_MODEL', 'gpt-4o-mini')
 
 settings = Settings()
