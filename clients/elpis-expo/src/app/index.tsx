@@ -3,6 +3,7 @@ import { VerticalSpacer } from "@/components/theme-layout";
 import { ThemeLinkButton } from "@/components/theme-button";
 import { ThemeSafeView, ThemeView } from "@/components/theme-view";
 import { ThemeText } from "@/components/theme-text";
+import { Stack } from "expo-router";
 
 export default function Index() {
   return (
@@ -23,6 +24,7 @@ export default function Index() {
 
       </VerticalSpacer>
     </ThemeSafeView>
+
   );
 }
 

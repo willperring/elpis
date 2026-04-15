@@ -8,9 +8,17 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "lint": "expo lint"
+    "lint": "expo lint",
+    "expose": "npx expose-wsl@latest",
+    "build:web": "expo export --platform web --dump-sourcemap --output-dir ./.build/web",
+    "build:dev:eas": "eas build --profile development --platform android",
+    "build:dev:local": "eas build --profile development --platform android --local --output ./dist/elpis-dev.apk",
+    "preview:web": "expo export --platform web --output-dir ./dist/web --no-minify --dev --source-maps true",
+    "preview:android:eas": "expo build --platform android --profile preview",
+    "preview:android:local": "eas build --local --platform android --profile preview --output ./dist/elpis-preview.apk"
   },
   "dependencies": {
+    "@csark0812/zustand-expo-devtools": "^2.1.7",
     "@react-navigation/bottom-tabs": "^7.15.5",
     "@react-navigation/elements": "^2.9.10",
     "@react-navigation/native": "^7.1.33",
@@ -32,11 +40,13 @@
     "react-dom": "19.2.0",
     "react-native": "0.83.4",
     "react-native-gesture-handler": "~2.30.0",
+    "react-native-keyboard-controller": "1.20.7",
     "react-native-reanimated": "4.2.1",
     "react-native-safe-area-context": "~5.6.2",
     "react-native-screens": "~4.23.0",
     "react-native-web": "~0.21.0",
-    "react-native-worklets": "0.7.2"
+    "react-native-worklets": "0.7.2",
+    "zustand": "^5.0.12"
   },
   "devDependencies": {
     "@types/react": "~19.2.2",
