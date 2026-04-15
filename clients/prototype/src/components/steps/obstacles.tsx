@@ -1,7 +1,7 @@
 import { Button } from "@/components/button.tsx";
 import { useAppState, useDispatch } from "@/state/provider.tsx";
-import { ChangeEvent, useState } from "react";
-import type { AdvicePersona, ChatMessage } from "@/types/llm.ts";
+import { useState } from "react";
+import type { ChatMessage } from "@/types/llm.ts";
 import { useChatWidget } from "@/hooks/use-chat-widget.ts";
 import { ChatHistory } from "@/components/chat-history.tsx";
 import { obstacles } from "@/services/api.ts";
@@ -24,6 +24,7 @@ export const Obstacles = () =>
 
     pushMessage( message )
     setTextValue( '' )
+    setProcessing( true )
 
     const fullConversation = [ ...conversation, message ]
 
@@ -40,6 +41,8 @@ export const Obstacles = () =>
           personas    : response.obstacles.advice_personas,
         })
       }
+    }).finally( () => {
+      setProcessing( false )
     })
   }
 

@@ -2,7 +2,7 @@ import { Button } from "@/components/button.tsx";
 import { useAppState, useDispatch } from "@/state/provider.tsx";
 import type { Choice } from "@/components/choices.tsx";
 import { Choices } from "@/components/choices.tsx";
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 import type { ChatConversation, ChatMessage } from "@/types/llm.ts";
 import { confirmObjective } from "@/services/api.ts";
 import { ChatHistory } from "@/components/chat-history.tsx";
@@ -44,7 +44,9 @@ export const Objective = () =>
   )
 }
 
-const ObjectivePathSelect = ({ onSelect }) =>
+const ObjectivePathSelect = ({ onSelect }: {
+  onSelect: ( hasTask: boolean ) => void
+}) =>
 {
   const { introObjective } = useAppState();
 
@@ -83,6 +85,7 @@ const ObjectiveKnown = () =>
     // Update the internal state
     pushMessage( message )
     setTextValue( '' )
+    setProcessing( true )
 
     // Send to the API - need to recreate the whole conversation
     const fullConversation: ChatConversation = [ ...conversation, message ]
@@ -100,6 +103,8 @@ const ObjectiveKnown = () =>
           instruction : response.objective.objective_llm_instruction
         })
       }
+    }).finally( () => {
+      setProcessing( false )
     })
   }
 
