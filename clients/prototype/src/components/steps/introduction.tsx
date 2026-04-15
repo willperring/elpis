@@ -50,7 +50,7 @@ export const Introduction = () =>
           value={nameValue}
           type="text"
         />
-        <Button
+        <ThemeButton
           className="mt-2"
           onPress={onSubmit}
           disabled={ processing || ! canSubmit }
